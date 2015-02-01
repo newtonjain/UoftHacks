@@ -12,8 +12,6 @@ Built with node because we know it is the only true dev language.
 * Hosting on IBM's Bluemix for language translation and analytics.
 * Command line web socket for interfacing with the IBM Bluemix web server.
 
-Current 
-
 ### Dependencies:
 
 * [node-bluetooth-serial-port](https://github.com/eelcocramer/node-bluetooth-serial-port)
