@@ -70,6 +70,7 @@ outputString = "";
 //myo connection
 var Myo = require('../template/entry'),
     hub = new Myo.Hub();
+    // Myo.setLockingPolicy("none");
 
 hub.on('ready', function() { console.log('ready'); });
 hub.on('connect', function() { console.log('connected'); });
@@ -95,6 +96,7 @@ hub.on('pose', function(pose) {
             console.log("fist");
             Fist = true;
             tempArray.fistRest = tempArray.rest;
+
             /*
             "What"
             */
@@ -112,8 +114,8 @@ hub.on('pose', function(pose) {
             */
             
             if(tempArray.Ilu[0] == 1 && (tempArray.rest - tempArray.Ilu[1] <= 100)){
-                console.log("I love you");
-                outputString = "I love you"
+                console.log("Want to go out tonight?");
+                outputString = "Want to go out tonight?"
                 tempArray.Ilu[0] = 0;
                 tempArray.Ilu[1] = 0;
             }
@@ -121,11 +123,12 @@ hub.on('pose', function(pose) {
 
             /*
             "Sadness"
+            //spread hands, fist: ":("
             */
             //console.log("tempArray.rest = " + tempArray.rest)
             //console.log("tempArray.Sadness[1] = " + tempArray.Sadness[1])
             if(tempArray.Sadness[0] == 1 && (tempArray.rest - tempArray.Sadness[1] <= 100)){
-                console.log(":("));
+                console.log(":(");
                 outputString = ":("
                 tempArray.Sadness[0] = 0;
                 tempArray.Sadness[1] = 0;
@@ -137,6 +140,7 @@ hub.on('pose', function(pose) {
 
             /*
             "Hi"
+            //wave in, wave out: "Hi"
             */
             if(tempArray.Hi[0] == 0){
                 tempArray.Hi[0] = tempArray.Hi[0] + 1
@@ -148,7 +152,7 @@ hub.on('pose', function(pose) {
 
 
             /*
-            "What"
+            wave in, fist: "What are your plans for the weekend?"
             */
             if(tempArray.What[0] == 0){
                 tempArray.What[0] = tempArray.What[0] + 1
@@ -160,12 +164,13 @@ hub.on('pose', function(pose) {
 
             /*
             "Smug"
+            //spread hands, wave in: ":/"
             */
             //console.log("tempArray.rest = " + tempArray.rest)
             //console.log("tempArray.Smug[1] = " + tempArray.Smug[1])
             if(tempArray.Smug[0] == 1 && (tempArray.rest - tempArray.Smug[1] <= 100)){
-                console.log("I am in love with the coco");
-                outputString = "I am in love with the coco"
+                console.log("I love you");
+                outputString = "I love you"
                 tempArray.Smug[0] = 0;
                 tempArray.Smug[1] = 0;
             }
@@ -182,16 +187,17 @@ hub.on('pose', function(pose) {
             */
             //console.log(tempArray.Hi)
             if(tempArray.Hi[0] == 0){
-                console.log("Bye");
-                outputString = "Bye"
+                console.log("Bye nice meeting you");
+                outputString = "Bye nice meeting you"
             }
                     
             /*
             "Hi"
+            //wave in, wave out: "Hi"
             */
             if(tempArray.Hi[0] == 1 && (tempArray.rest - tempArray.Hi[1] <= 100)){
                 console.log("Hi");
-                outputString = "Hi"
+                outputString = "Nearest Starbucks?"
                 tempArray.Hi[0] = 0;
             }
 
@@ -222,6 +228,7 @@ hub.on('pose', function(pose) {
 
             /*
             "Wut"
+            //spread hands, wave out, ":F"
             */
             //console.log("tempArray.rest = " + tempArray.rest)
             //console.log("tempArray.Wut[1] = " + tempArray.Wut[1])
@@ -244,7 +251,7 @@ hub.on('pose', function(pose) {
         */
 
             console.log("fingers spreading");
-            console.log("#HackitShipIt");
+            //console.log("#HackitShipIt");
 
             /*
             "Smug"
@@ -317,7 +324,7 @@ hub.on('pose', function(pose) {
             if(tempArray.Sadness[1] < (tempArray.rest - 100)){
                 tempArray.Sadness[1] = 0;
             }       
-            if(tempArrayW.Wut[1] < (tempArray.rest - 100)){
+            if(tempArray.Wut[1] < (tempArray.rest - 100)){
                 tempArray.Wut[1] = 0;
             }       
             if(tempArray.Smug[1] < (tempArray.rest - 100)){
