@@ -1,0 +1,12 @@
+applications:
+- services:
+  - Machine Translation-i4
+  - Internet of Things-0f
+  disk_quota: 1024M
+  host: expressmeu
+  name: ExpressMeU
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 128M
