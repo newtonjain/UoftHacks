@@ -26,7 +26,7 @@ btSerial.on('found', function(address, name) {
            //  }
             console.log(outputString);
             console.log(color);
-        }, 7000);
+        }, 4000);
 
    
 
@@ -227,7 +227,7 @@ hub.on('pose', function(pose) {
         default:
 	        //console.log("rest")
 	        tempArray.rest = tempArray.rest + 1;
-            if(tempArray.fistRest < (tempArray.rest - 100)){
+            if(tempArray.fistRest < (tempArray.rest - 80)){
                 Fist = false;
                 //console.log("Fist is false")
             }
@@ -254,29 +254,30 @@ hub.on('pose', function(pose) {
  //////////////////////////color///////////
 
 hub.on('frame', function(frame) {
-    
+    //console.log();
+    var xRotate = Math.abs(frame.rotation.x);
      if(Fist){
   //  console.dir(frame);
      
     if (frame.rotation ) {
-        if(frame.rotation.x>-0.1 && frame.rotation.x<.3 ){
+        if(xRotate>0 && xRotate<0.20 ){
             color = 'FFFFFF';
-            console.log("color is WHITE");
+           // console.log("color is WHITE");
         }
         
-         if(frame.rotation.x>-0.5 && frame.rotation.x<-.2){
+         if(xRotate>0.20 && xRotate<0.25){
            color = 'FF0000';
-            console.log("color is  RED");
+         console.log("color is  RED");
         }
-        if(frame.rotation.x>.35 && frame.rotation.x<.5){
+        if(xRotate>0.25 && xRotate<0.35){
              color = '00ff00';
             console.log("color is  Green");
         }
-        // if(frame.rotation.x>.17){
-        //     var color = 'FFFFFF';
-        //     console.log("color is  white again");
-        // }
-        if(frame.rotation.x<-0.5 || frame.rotation.x>0.5){
+         if(xRotate>0.35 && xRotate<0.5){
+             color = '0000ff';
+            console.log("color is  Blue");
+        }
+        if(xRotate>0.5){
              color = 'FFFFFF';
             console.log("color is  still while, WHITE, try something new");
         }
