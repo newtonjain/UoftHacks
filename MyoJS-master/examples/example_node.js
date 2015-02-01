@@ -176,8 +176,8 @@ hub.on('pose', function(pose) {
             */
             //console.log(tempArray.Hi)
             if(tempArray.Hi[0] == 0){
-                console.log("Bye nice meeting you");
-                outputString = "Bye nice meeting you"
+                console.log("Bye, nice meeting you");
+                outputString = "Bye, nice meeting you"
             }
                     
             
