@@ -94,11 +94,9 @@ hub.on('pose', function(pose) {
         //Fist
         case currentPose.POSE_FIST:
             console.log("fist");
-            Fist = true;
-            tempArray.fistRest = tempArray.rest;
-
+            
             /*
-            "What"
+            "What, Ilu, Sadness"
             */
             //console.log(tempArray.rest)
             //console.log(tempArray.What[1])
@@ -108,32 +106,23 @@ hub.on('pose', function(pose) {
                 tempArray.What[0] = 0;
                 tempArray.What[1] = 0;
             }
-
-            /*
-            "Ilu"
-            */
-            
-            if(tempArray.Ilu[0] == 1 && (tempArray.rest - tempArray.Ilu[1] <= 100)){
+            else if(tempArray.Ilu[0] == 1 && (tempArray.rest - tempArray.Ilu[1] <= 100)){
                 console.log("Want to go out tonight?");
                 outputString = "Want to go out tonight?"
                 tempArray.Ilu[0] = 0;
                 tempArray.Ilu[1] = 0;
             }
-            break;
-
-            /*
-            "Sadness"
-            //spread hands, fist: ":("
-            */
-            //console.log("tempArray.rest = " + tempArray.rest)
-            //console.log("tempArray.Sadness[1] = " + tempArray.Sadness[1])
-            if(tempArray.Sadness[0] == 1 && (tempArray.rest - tempArray.Sadness[1] <= 100)){
+            else if(tempArray.Sadness[0] == 1 && (tempArray.rest - tempArray.Sadness[1] <= 100)){
                 console.log(":(");
                 outputString = ":("
                 tempArray.Sadness[0] = 0;
                 tempArray.Sadness[1] = 0;
             }
-
+            else{
+                Fist = true;
+                tempArray.fistRest = tempArray.rest;
+            }
+            break;
         //Wave in
         case currentPose.POSE_WAVE_IN:
             console.log("wave in");
@@ -191,15 +180,7 @@ hub.on('pose', function(pose) {
                 outputString = "Bye nice meeting you"
             }
                     
-            /*
-            "Hi"
-            //wave in, wave out: "Hi"
-            */
-            if(tempArray.Hi[0] == 1 && (tempArray.rest - tempArray.Hi[1] <= 100)){
-                console.log("Hi");
-                outputString = "Nearest Starbucks?"
-                tempArray.Hi[0] = 0;
-            }
+            
 
             /*
             "Ilu"
@@ -227,8 +208,7 @@ hub.on('pose', function(pose) {
             }
 
             /*
-            "Wut"
-            //spread hands, wave out, ":F"
+            "Wut, "Hi"
             */
             //console.log("tempArray.rest = " + tempArray.rest)
             //console.log("tempArray.Wut[1] = " + tempArray.Wut[1])
@@ -237,6 +217,11 @@ hub.on('pose', function(pose) {
                 outputString = "Node.js is the only real dev language"
                 tempArray.Wut[0] = 0;
                 tempArray.Wut[1] = 0;
+            }
+            else if(tempArray.Hi[0] == 1 && (tempArray.rest - tempArray.Hi[1] <= 100)){
+                console.log("Nearest Starbucks?");
+                outputString = "Nearest Starbucks?"
+                tempArray.Hi[0] = 0;
             }
 
 
@@ -301,7 +286,7 @@ hub.on('pose', function(pose) {
         default:
 	        //console.log("rest")
 	        tempArray.rest = tempArray.rest + 1;
-            if(tempArray.fistRest < (tempArray.rest - 80)){
+            if(tempArray.fistRest < (tempArray.rest - 60)){
 
                 Fist = false;
                 //console.log("Fist is false")
@@ -347,12 +332,12 @@ hub.on('frame', function(frame) {
     if (frame.rotation ) {
         if(xRotate>0 && xRotate<0.20 ){
             color = 'FFFFFF';
-           // console.log("color is WHITE");
+           console.log("color is white");
         }
         
          if(xRotate>0.20 && xRotate<0.25){
            color = 'FF0000';
-         console.log("color is  RED");
+            console.log("color is  RED");
         }
         if(xRotate>0.25 && xRotate<0.35){
              color = '00ff00';

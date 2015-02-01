@@ -1,41 +1,62 @@
-/*jshint node:true*/
-
-// app.js
-// This file contains the server side JavaScript code for your application.
-// This sample application uses express as web application framework (http://expressjs.com/),
-// and jade as template engine (http://jade-lang.com/).
-
 var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
+var logger = require('npmlog');
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
-// setup middleware
 var app = express();
-app.use(app.router);
-app.use(express.errorHandler());
-app.use(express.static(__dirname + '/public')); //setup static public directory
-app.set('view engine', 'jade');
-app.set('views', __dirname + '/views'); //optional since express defaults to CWD/views
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
-// render index page
-app.get('/', function(req, res){
-	res.render('index');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+app.use('/users', users);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-// There are many useful environment variables available in process.env.
-// VCAP_APPLICATION contains useful information about a deployed application.
-var appInfo = JSON.parse(process.env.VCAP_APPLICATION || "{}");
-// TODO: Get application information and use it in your app.
+// error handlers
 
-// VCAP_SERVICES contains all the credentials of services bound to
-// this application. For details of its content, please refer to
-// the document or sample of each service.
-var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
-// TODO: Get service credentials and communicate with bluemix services.
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
 
-// The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
-var host = (process.env.VCAP_APP_HOST || 'localhost');
-// The port on the DEA for communication with the application:
-var port = (process.env.VCAP_APP_PORT || 3000);
-// Start server
-app.listen(port, host);
-console.log('App started on port ' + port);
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
+
+module.exports = app;
+app.listen(3000);
