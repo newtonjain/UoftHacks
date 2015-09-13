@@ -1,4 +1,24 @@
 console.log('I am here');
+
+
+var arDrone = require('ar-drone');
+var client  = arDrone.createClient();
+// client.createRepl();
+
+// //var pngStream = arDrone.createClient().getPngStream();
+// client.disableEmergency();
+
+//var pngStream = client.getPngStream();
+
+var lastPng;
+// pngStream
+//   .on('error', console.log)
+//   .on('data', function(pngBuffer) {
+//     lastPng = pngBuffer;
+//   });
+
+
+/////////////////////////////////////////
 //myo connection
 var currentPose;
 var Myo = require('../template/entry'),
@@ -8,34 +28,27 @@ var Myo = require('../template/entry'),
 hub.on('ready', function() { console.log('ready'); });
 hub.on('connect', function() { console.log('connected'); });
 hub.on('disconnect', function() { console.log('disconnect'); });
-hub.on('frame', function(frame) {
-    console.dir(frame);
 
-    if (frame.rotation) {
-       console.log(frame.rotation.toString());
-    }
-
-    if (frame.pose && frame.pose.valid) {
-       console.log(frame.pose.toString());
-    }
-    
-});
 hub.on('pose', function(pose) {
     currentPose = pose;
     
     switch(currentPose.type) {
         //Fist
         case currentPose.POSE_FIST:
+
             console.log("fist");
+            client.stop();
             break;
         //Wave in
         case currentPose.POSE_WAVE_IN:
             console.log("wave in");
+            client.land();
             break;
 
         //Wave out
         case currentPose.POSE_WAVE_OUT:
             console.log("wave out");
+            client.takeoff();
             break;
 
         //Finger spread
@@ -61,25 +74,19 @@ hub.on('pose', function(pose) {
 
 });
 
-// var MyoJS = require('./../index'),
-//     hub = new Myo.Hub(),
-//     checkConnection;
+// server.listen(8080, function() {
+//   console.log('Serving latest png on port 8080 ...');
+//   console.log('Taking off');
+//   // client.takeoff();
 
-// hub.on('ready', function() { console.log('ready'); });
-// hub.on('connect', function() { console.log('connected'); });
-// hub.on('disconnect', function() { console.log('disconnect'); });
-// hub.on('frame', function(frame) {
-//     setInterval(function() {
-//     console.log(frame.rotation.toString());
-//     console.log(frame.accel.toString());
-//     console.log(frame.gyro.toString());
-//     }, 4000);
+//   // client
+//   //   .after(5000, function() {
+//   //     this.stop();
+//   //   })
+//   //   .after(1000, function() {
+//   //     this.stop();
+//   //     this.land();
+//   //   });
+
 // });
 
-// checkConnection = setInterval(function() {
-//     if(hub.connection.connected) {
-//         clearInterval(checkConnection);
-//     } else {
-//         console.log('Waiting for connection...');
-//     }
-// }, 1000);

@@ -10,7 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "underscore": "latest",
-    "ws": "latest"
+    "ws": "latest",
+        "buffy": "0.0.4",
+    "simple-debug": "~1.1.1"
   },
   "devDependencies": {
     "browserify": "latest",
@@ -23,7 +25,11 @@
     "grunt-contrib-clean": "latest",
     "grunt-contrib-watch": "latest",
     "load-grunt-tasks": "latest",
-    "grunt-exec": "latest"
+    "grunt-exec": "latest",
+        "utest": "0.0.6",
+    "urun": "0.0.6",
+    "sinon": "1.4.2",
+    "jshint": "2.3.0"
   },
   "keywords": [
     "myo",
